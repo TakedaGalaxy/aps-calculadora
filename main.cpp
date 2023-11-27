@@ -1,30 +1,66 @@
+#include "lib/calculator-tests/CalculatorTests.hpp"
+
+#include "lib/implementations/display/DisplayLucio.hpp"
+#include "lib/implementations/keyboard/KeyboardLucio.hpp"
+#include "lib/implementations/key/KeyLucio.hpp"
+#include "lib/implementations/cpu/CpuLucio.hpp"
+
 #include <iostream>
-#include "./lib/calculadora/calculadora.hpp"
 
-void printOK()
-{
-  std::cout << "OK" << std::endl;
-}
-
-int main(void)
+int main()
 {
 
-  IndentificadorBotao listaBotoes[5] = {ZERO, UM, DOIS, TRES, QUATRO};
+  Display *display1 = new DisplayLucio();
 
-  Teclado teclado(listaBotoes, 5);
+  Cpu *cpu1 = new CpuLucio();
 
-  teclado.associarEvento(ZERO, []()
-                         { std::cout << "ZERO" << std::endl; });
+  Key *keyOne = new KeyDigitLucio("1", Digit::ONE);
+  Key *keyOperator = new KeyOperatorLucio("+", Operator::SUM);
+  Key *keyControl = new KeyControlLucio("CE", Control::CLEAR_ERROR);
 
-  teclado.associarEvento(UM, []()
-                         { std::cout << "UM" << std::endl; });
+  Keyboard *keyboard1 = new KeyboardLucio();
 
-  teclado.associarEvento(DOIS, []()
-                         { std::cout << "DOIS" << std::endl; });
+  /* Build Calculator */
+  cpu1->setDisplay(display1);
+  keyboard1->setCpu(cpu1);
 
-  while (1)
+  keyboard1->addKey(keyOne);
+  keyboard1->addKey(keyOperator);
+  keyboard1->addKey(keyControl);
+
+  // /* Testing... */
+  try
   {
-    teclado.executaOcorrenciaEventos();
+    keyboard1->findKey("1")->press();
+    keyboard1->findKey("+")->press();
+    keyboard1->findKey("1")->press();
+    keyboard1->findKey("=")->press();
   }
-  return 0;
+  catch (const char *bolinha)
+  {
+    std::cout << bolinha;
+  }
+
+  CalculatorTests::pause();
+  CalculatorTests::setPauseAfterTests(true);
+
+  CalculatorTests::testDisplay(display1);
+  CalculatorTests::testKeyboard(keyboard1);
+
+  // display1->showDigits();
+  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
+  // display1->mostrarDigitos();
+  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
+
+  // display1->Display::showDigits();
+  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
+  // display1->showDigits();
+  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
+
+  // Calculator calculator1;
+
+  // calculator1.getKeyboard().getKey("1").press();
+  // calculator1.getKeyboard().getKey("+").press();
+  // calculator1.getKeyboard().getKey("1").press();
+  // calculator1.getKeyboard().getKey("=").press();
 }
