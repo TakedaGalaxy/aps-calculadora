@@ -1,66 +1,15 @@
-#include "lib/calculator-tests/CalculatorTests.hpp"
-
-#include "lib/implementations/display/DisplayLucio.hpp"
-#include "lib/implementations/keyboard/KeyboardLucio.hpp"
-#include "lib/implementations/key/KeyLucio.hpp"
-#include "lib/implementations/cpu/CpuLucio.hpp"
-
-#include <iostream>
+#include "main.hpp"
 
 int main()
 {
 
-  Display *display1 = new DisplayLucio();
+  InterfaceConsole *console = new Console();
 
-  Cpu *cpu1 = new CpuLucio();
+  console->clearScreen();
 
-  Key *keyOne = new KeyDigitLucio("1", Digit::ONE);
-  Key *keyOperator = new KeyOperatorLucio("+", Operator::SUM);
-  Key *keyControl = new KeyControlLucio("CE", Control::CLEAR_ERROR);
+  for (int x = 0; x < 10; x++)
+    for (int y = 0; y < 10; y++)
+      console->setPixel(x, y, FILL);
 
-  Keyboard *keyboard1 = new KeyboardLucio();
-
-  /* Build Calculator */
-  cpu1->setDisplay(display1);
-  keyboard1->setCpu(cpu1);
-
-  keyboard1->addKey(keyOne);
-  keyboard1->addKey(keyOperator);
-  keyboard1->addKey(keyControl);
-
-  // /* Testing... */
-  try
-  {
-    keyboard1->findKey("1")->press();
-    keyboard1->findKey("+")->press();
-    keyboard1->findKey("1")->press();
-    keyboard1->findKey("=")->press();
-  }
-  catch (const char *bolinha)
-  {
-    std::cout << bolinha;
-  }
-
-  CalculatorTests::pause();
-  CalculatorTests::setPauseAfterTests(true);
-
-  CalculatorTests::testDisplay(display1);
-  CalculatorTests::testKeyboard(keyboard1);
-
-  // display1->showDigits();
-  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
-  // display1->mostrarDigitos();
-  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
-
-  // display1->Display::showDigits();
-  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
-  // display1->showDigits();
-  // std::cout<< "\nPRESS ENTER"; std::cin.ignore();
-
-  // Calculator calculator1;
-
-  // calculator1.getKeyboard().getKey("1").press();
-  // calculator1.getKeyboard().getKey("+").press();
-  // calculator1.getKeyboard().getKey("1").press();
-  // calculator1.getKeyboard().getKey("=").press();
+  return 0;
 }
