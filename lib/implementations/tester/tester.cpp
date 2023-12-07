@@ -73,7 +73,7 @@ void Tester::sub()
   console->setPixel(0, 12, EMPTY);
   messageStop("Pressione enter para continuar!");
 
-  setOperationCpuDisplay(cpu, OP_SUM, display, SUM);
+  setOperationCpuDisplay(cpu, OP_SUM, display, SUBTRACTION);
 
   console->setPixel(0, 12, EMPTY);
   messageStop("Pressione enter para continuar!");
@@ -110,7 +110,7 @@ void Tester::mult()
   console->setPixel(0, 12, EMPTY);
   messageStop("Pressione enter para continuar!");
 
-  setOperationCpuDisplay(cpu, OP_SUM, display, SUM);
+  setOperationCpuDisplay(cpu, OP_SUM, display, MULTIPLICATION);
 
   console->setPixel(0, 12, EMPTY);
   messageStop("Pressione enter para continuar!");
@@ -151,7 +151,7 @@ void Tester::div()
   console->setPixel(0, 12, EMPTY);
   messageStop("Pressione enter para continuar!");
 
-  setOperationCpuDisplay(cpu, OP_SUM, display, SUM);
+  setOperationCpuDisplay(cpu, OP_SUM, display, DIVISION);
 
   console->setPixel(0, 12, EMPTY);
   messageStop("Pressione enter para continuar!");

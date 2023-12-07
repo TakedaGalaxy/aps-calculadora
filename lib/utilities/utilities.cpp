@@ -43,6 +43,7 @@ void setOperationCpuDisplay(InterfaceCpu *cpu, Operation op, InterfaceDisplay *d
   Memory result = cpu->getResult();
   display->clear();
   display->clearResult();
+  display->setOperation(sysOp);
   if (result.negative)
     display->setNegativeResult();
   else
@@ -54,7 +55,6 @@ void setOperationCpuDisplay(InterfaceCpu *cpu, Operation op, InterfaceDisplay *d
     display->addOnResult(converIntToSysmbol(result.v[i]));
     display->render();
   }
-  display->setOperation(sysOp);
   display->render();
 }
 
