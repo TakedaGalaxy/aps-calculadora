@@ -3,7 +3,8 @@
 enum ConsolePixelStyles
 {
   FILL,
-  EMPTY
+  EMPTY,
+  DOT
 };
 
 class InterfaceConsole

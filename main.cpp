@@ -5,11 +5,19 @@ int main()
 
   InterfaceConsole *console = new Console();
 
-  console->clearScreen();
+  InterfaceDisplay *display = new Display(console);
 
-  for (int x = 0; x < 10; x++)
-    for (int y = 0; y < 10; y++)
-      console->setPixel(x, y, FILL);
+  display->on();
+
+  display->addOnResult(ONE);
+  display->addOnResult(TWO);
+  display->addOnResult(FOUR);
+
+  display->add(FOUR);
+  display->add(TWO);
+  display->add(ONE);
+
+  display->render();
 
   return 0;
 }

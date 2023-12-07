@@ -27,6 +27,7 @@ void Console::setPixel(int x, int y, ConsolePixelStyles style)
   }
 
   char pixel = style == FILL ? 219 : style == EMPTY ? ' '
+                                 : style == DOT     ? 254
                                                     : 'x';
 
   std::cout << pixel;
