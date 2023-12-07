@@ -18,7 +18,7 @@ Memory convertFloatToMemory(float number)
   int dot = 0;
 
   int fracInt = 0;
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < 6 && frac != 0; i++)
   {
     frac *= 10;
     fracInt = (fracInt * 10) + (int)frac;
@@ -130,7 +130,6 @@ void Cpu::doOperation()
   default:
     break;
   }
-  printf("V : %f R: %f\n", value, this->result);
 }
 
 Memory Cpu::getValue()
