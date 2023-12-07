@@ -12,13 +12,7 @@ struct SysmboysStatus
   bool memorySave;
 };
 
-const bool SysmboyShape[11][15] = {
-    // NONE
-    {0, 0, 0,
-     0, 0, 0,
-     0, 0, 0,
-     0, 0, 0,
-     0, 0, 0},
+const bool SysmboyShape[12][15] = {
     // ZERO
     {1, 1, 1,
      1, 0, 1,
@@ -78,7 +72,20 @@ const bool SysmboyShape[11][15] = {
      1, 0, 1,
      1, 1, 1,
      0, 0, 1,
-     1, 1, 1}};
+     1, 1, 1},
+    // NONE
+    {0, 0, 0,
+     0, 0, 0,
+     0, 0, 0,
+     0, 0, 0,
+     0, 0, 0},
+    // DOT
+    {0, 0, 0,
+     0, 0, 0,
+     0, 0, 0,
+     0, 0, 0,
+     0, 1, 0},
+};
 
 const bool OperationSysmboyShape[7][15] = {
     // NONE,
@@ -139,6 +146,8 @@ private:
 
   void drawDigit(int x, int y, const bool digit[15]);
 
+  bool negativeResult = 0;
+
 public:
   Display(InterfaceConsole *interfaceConsole);
 
@@ -160,4 +169,7 @@ public:
   virtual void setOff(IndicatorSysmbol);
 
   virtual void render();
+
+  virtual void setNegativeResult();
+  virtual void setPositiveResult();
 };

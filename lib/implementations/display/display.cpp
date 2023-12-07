@@ -61,6 +61,7 @@ void Display::setOnResult(Sysmbol *v, int n)
 
 void Display::clearResult()
 {
+  this->negativeResult = 0;
   for (int i = 0; i < this->MAX_DIGITS; i++)
     this->resultBuffer[i] = SPACE;
 }
@@ -95,18 +96,30 @@ void Display::render()
 {
   console->clearScreen();
 
-  //
-  for (int i = 0; i < this->MAX_DIGITS; i++)
-    this->drawDigit((i * 3) + i, 0, SysmboyShape[this->resultBuffer[i]]);
+  if (this->negativeResult)
+    this->drawDigit(0, 0, OperationSysmboyShape[SUBTRACTION]);
 
   //
-  this->drawDigit(this->MAX_DIGITS * 3 + this->MAX_DIGITS + 1, 0, OperationSysmboyShape[this->operationBuffer]);
+  for (int i = 0; i < this->MAX_DIGITS; i++)
+    this->drawDigit(6 + (i * 3) + i, 0, SysmboyShape[this->resultBuffer[i]]);
+
+  //
+  this->drawDigit(6 + this->MAX_DIGITS * 3 + this->MAX_DIGITS + 1, 0, OperationSysmboyShape[this->operationBuffer]);
 
   //
   for (int i = 0; i < this->MAX_DIGITS * 3 + this->MAX_DIGITS - 1; i++)
-    this->console->setPixel(i, 5, DOT);
+    this->console->setPixel(6 + i, 5, DOT);
 
   //
   for (int i = 0; i < this->MAX_DIGITS; i++)
-    this->drawDigit((i * 3) + i, 6, SysmboyShape[this->valueBuffer[i]]);
+    this->drawDigit(6 + (i * 3) + i, 6, SysmboyShape[this->valueBuffer[i]]);
+}
+
+void Display::setNegativeResult()
+{
+  this->negativeResult = 1;
+}
+void Display::setPositiveResult()
+{
+  this->negativeResult = 0;
 }

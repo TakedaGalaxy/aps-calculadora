@@ -2,7 +2,6 @@
 
 enum Sysmbol
 {
-  SPACE,
   ZERO,
   ONE,
   TWO,
@@ -13,6 +12,8 @@ enum Sysmbol
   SEVEN,
   EIGHT,
   NINE,
+  SPACE,
+  SY_DOT,
 };
 
 enum OperationSysmbol
@@ -56,4 +57,7 @@ public:
   virtual void setOff(IndicatorSysmbol) = 0;
 
   virtual void render() = 0;
+
+  virtual void setNegativeResult() = 0;
+  virtual void setPositiveResult() = 0;
 };
