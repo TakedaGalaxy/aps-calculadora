@@ -2,8 +2,11 @@
 
 int main()
 {
+  Display *display = new DisplayTK();
 
   Cpu *cpu = new CpuTK();
+  cpu->setDisplay(display);
+
   Keyboard *keyboard = new KeyboardTK();
   keyboard->setCpu(cpu);
 
@@ -83,6 +86,9 @@ int main()
   /* End */
 
   keyboard->findKey("1")->press();
+  keyboard->findKey("+")->press();
+  keyboard->findKey("1")->press();
+  keyboard->findKey("=")->press();
 
   return 0;
 }

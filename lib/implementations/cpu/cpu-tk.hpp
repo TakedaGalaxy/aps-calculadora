@@ -2,15 +2,26 @@
 
 #include "../../interfaces/calculator.hpp"
 
-class CpuTK: public Cpu{
-  private:
-    Display* display;
+struct Memory_8
+{
+  char digits[8];
+  unsigned short int i;
+  short int iDecimalSeparator;
+};
 
-  public:
-    Display* getDisplay();
-    void setDisplay(Display*);
+class CpuTK : public Cpu
+{
+private:
+  Display *display;
 
-    void receiveDigit(Digit);
-    void receiveOperator(Operator);
-    void receiveControl(Control);
+  Memory_8 result = {{0}, 0, -1};
+  Memory_8 preparation = {{0}, 0, -1};
+
+public:
+  Display *getDisplay();
+  void setDisplay(Display *);
+
+  void receiveDigit(Digit);
+  void receiveOperator(Operator);
+  void receiveControl(Control);
 };

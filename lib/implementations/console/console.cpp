@@ -1,39 +1,29 @@
 #include "console.hpp"
 #include <iostream>
-#include <cstdlib>
-#include <cwchar>
 
-Console::Console()
-{
-  this->console = GetStdHandle(STD_OUTPUT_HANDLE);
+using namespace std;
+
+Console::Console() {}
+
+void Console::init(int startRow, int startCol) {
+  clearScreen();
+  setCursor(startRow, startCol);
 }
 
-void Console::setPixel(int x, int y, ConsolePixelStyles style)
-{
-  if (this->console == INVALID_HANDLE_VALUE)
-  {
-    std::cerr << "Erro ao obter o identificador do console\n";
-    return;
-  }
+void Console::hideCursor() { cout << "\033[?25l"; }
 
-  COORD position;
-  position.X = x; // Coluna
-  position.Y = y; // Linha
+void Console::showCursor() { cout << "\033[?25h"; }
 
-  if (!SetConsoleCursorPosition(this->console, position))
-  {
-    std::cerr << "Erro ao definir a posição do cursor\n";
-    return;
-  }
-
-  char pixel = style == FILL ? 219 : style == EMPTY ? ' '
-                                 : style == DOT     ? 254
-                                                    : 'x';
-
-  std::cout << pixel;
+void Console::setCursor(int row, int col) {
+  cout << "\033[" << row << ';' << col << 'H';
 }
 
-void Console::clearScreen()
-{
-  system("cls");
-}
+void Console::setColor(Color color) { cout << "\033[" << (int)color << 'm'; }
+
+void Console::setColorFg256(int color) { cout << "\033[38:5:" << color << "m"; }
+
+void Console::setColorBg256(int color) { cout << "\033[48:5:" << color << "m"; }
+
+void Console::resetColor() { setColor(Color::Reset); }
+
+void Console::clearScreen() { cout << "\033[2J"; }
